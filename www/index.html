@@ -56,8 +56,11 @@ function updateCharacterCount(inputId, counterId, maxLength) {
     const counter = $(`#${counterId}`);
 
     input.on('input', () => {
-        const length = input.val().length;
-        counter.text(`${length}/${maxLength}`);
+        //const length = input.val().length;
+        //最終課題の変更
+        const nokorilength = maxLength - input.val().length;
+        counter.text(`残り ${nokorilength} 文字`);
+        //counter.text(`${length}/${maxLength}`);
 
         if (length > maxLength) {
             counter.addClass('error');
