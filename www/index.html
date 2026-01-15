@@ -154,6 +154,7 @@ function escapeHtml(str) {
 
 // タイムスタンプのフォーマット
 function formatTimestamp(timestamp) {
+    /*
     const date = new Date(timestamp);
     return date.toLocaleString('ja-JP', {
         year: 'numeric',
@@ -162,6 +163,31 @@ function formatTimestamp(timestamp) {
         hour: '2-digit',
         minute: '2-digit'
     });
+    */
+    const now = Date.now();          // 現在時刻（ms）
+    const sabunn = now - timestamp;    // 現在時刻と投稿時刻との差（ms）
+
+    const byou = Math.floor(sabunn / 1000); //秒
+    const hunn = Math.floor(byou / 60); //分
+    const jikann = Math.floor(hunn / 60);   //時間
+    const niti = Math.floor(jikann / 24);   //日
+    const getu = Math.floor(niti / 30); //月
+
+    let result = "";
+
+    if (byou < 60) {
+        result = `${byou}秒前`;
+    } else if (hunn < 60) {
+        result = `${hunn}分前`;
+    } else if (jikann < 24) {
+        result = `${jikann}時間前`;
+    } else if (niti < 30) {
+        result = `${niti}日前`;
+    } else {
+        result = `${getu}ヶ月前`;
+    }
+
+    return result;
 }
 
 // 投稿の編集権限チェック
